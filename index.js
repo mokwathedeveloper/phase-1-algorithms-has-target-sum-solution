@@ -1,22 +1,51 @@
 function hasTargetSum(array, target) {
-  // Write your algorithm here
+  // Sort the array to make the solution more efficient
+  array.sort((a, b) => a - b);
+
+  // Use two pointers approach
+  let left = 0;
+  let right = array.length - 1;
+
+  while (left < right) {
+    const currentSum = array[left] + array[right];
+
+    if (currentSum === target) {
+      // Found a pair with the target sum
+      return true;
+    } else if (currentSum < target) {
+      // Move the left pointer to increase the sum
+      left++;
+    } else {
+      // Move the right pointer to decrease the sum
+      right--;
+    }
+  }
+
+  // No pair found
+  return false;
 }
 
 /* 
-  Write the Big O time complexity of your function here
+  Big O Time Complexity: O(n log n) due to the array sorting operation.
 */
 
 /* 
-  Add your pseudocode here
+  Pseudocode:
+  1. Sort the input array in ascending order.
+  2. Initialize two pointers, `left` at the beginning of the array and `right` at the end.
+  3. Use a while loop to iterate until `left` is less than `right`.
+  4. Calculate the sum of elements at `left` and `right`.
+  5. If the sum equals the target, return true.
+  6. If the sum is less than the target, move the `left` pointer to the right.
+  7. If the sum is greater than the target, move the `right` pointer to the left.
+  8. If the loop completes without finding a pair, return false.
+
+  Written Explanation:
+  The function uses the two pointers approach on a sorted array. By comparing the sum of the elements at the left and right pointers with the target, the pointers are adjusted accordingly. This approach allows the function to efficiently find a pair with the target sum, if one exists.
 */
 
-/*
-  Add written explanation of your solution here
-*/
-
-// You can run `node index.js` to view these console logs
+// Custom Tests
 if (require.main === module) {
-  // add your own custom tests in here
   console.log("Expecting: true");
   console.log("=>", hasTargetSum([3, 8, 12, 4, 11, 7], 10));
 
